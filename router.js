@@ -1,20 +1,22 @@
-const express = require('express');
+const express = require("express");
 const usercontroller = require("./controllers/Usercontroller");
-const router = express.Router()
-const postcontroller = require('./controllers/postscontroller');
+const router = express.Router();
+const postcontroller = require("./controllers/postscontroller");
 
-router.post('/user',usercontroller.store)
-router.get('/users',usercontroller.index)
-router.get('/user/:id',usercontroller.show)
-router.patch('/user/:id',usercontroller.update)
-router.delete('/user/:id',usercontroller.deleteuser)
+router.route("/user").post(usercontroller.store).get(usercontroller.index);
 
+router
+  .route("/user/:id")
+  .get(usercontroller.show)
+  .patch(usercontroller.update)
+  .delete(usercontroller.deleteuser);
 
+router.route("/post").post(postcontroller.store).get(postcontroller.index);
 
-router.post('/post',postcontroller.store)
-router.get('/posts',postcontroller.index)
+router
+  .route("/post/:id")
+  .get(postcontroller.show)
+  .delete(postcontroller.postdelete)
+  .patch(postcontroller.update);
 
-
-
-
-module.exports = router
+module.exports = router;
